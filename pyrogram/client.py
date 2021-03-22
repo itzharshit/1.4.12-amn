@@ -174,6 +174,7 @@ class Client(Methods, Scaffold):
             terminal environments.
     """
 
+
     def __init__(
         self,
         session_name: Union[str, Storage],
@@ -635,6 +636,9 @@ class Client(Methods, Scaffold):
             pass
         else:
             self.bot_token = parser.get("pyrogram", "bot_token", fallback=None)
+
+        if self.bot_token:
+            self.is_bot = True
 
         if self.api_id and self.api_hash:
             pass
