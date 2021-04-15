@@ -298,7 +298,7 @@ class Client(Methods, Scaffold):
         return response
 
     def clear_listener(self, chat_id, future):
-        if future == self.listening[chat_id]:
+        if future == self.listening[chat_id]["future"]:
             self.listening.pop(chat_id, None)
 
     def cancel_listener(self, chat_id):
