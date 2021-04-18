@@ -845,7 +845,7 @@ class Client(Methods, Scaffold):
     async def get_dc_session(self, dc_id: int) -> Session:
 
         async with self.media_sessions_lock:
-            session = self.media_sessions.get(dc_id, None)
+            session = self.media_sessions.get(dc_id)
 
             if session is None:
                 if dc_id != await self.storage.dc_id():
@@ -1142,7 +1142,7 @@ class Client(Methods, Scaffold):
 
             elif isinstance(r, raw.types.upload.FileCdnRedirect):
                 async with self.media_sessions_lock:
-                    cdn_session = self.media_sessions.get(r.dc_id, None)
+                    cdn_session = self.media_sessions.get(r.dc_id)
 
                     if cdn_session is None:
                         cdn_session = Session(

@@ -244,8 +244,7 @@ class Session:
             if msg.seq_no % 2 != 0:
                 if msg.msg_id in self.pending_acks:
                     continue
-                else:
-                    self.pending_acks.add(msg.msg_id)
+                self.pending_acks.add(msg.msg_id)
 
             if isinstance(msg.body, (raw.types.MsgDetailedInfo, raw.types.MsgNewDetailedInfo)):
                 self.pending_acks.add(msg.body.answer_msg_id)
@@ -359,7 +358,7 @@ class Session:
 
         # Call log.debug twice because calling it once by appending "data" to the previous string (i.e. f"Kind: {data}")
         # will cause "data" to be evaluated as string every time instead of only when debug is actually enabled.
-        log.debug(f"Sent:")
+        log.debug("Sent:\n%s", message)
         log.debug(message)
 
         payload = await self.loop.run_in_executor(
