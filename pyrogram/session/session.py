@@ -232,10 +232,7 @@ class Session:
             else [data]
         )
 
-        # Call log.debug twice because calling it once by appending "data" to the previous string (i.e. f"Kind: {data}")
-        # will cause "data" to be evaluated as string every time instead of only when debug is actually enabled.
-        log.debug("Received:")
-        log.debug(data)
+        log.debug("Received:\n%s", data)
 
         for msg in messages:
             if msg.seq_no == 0:
@@ -356,10 +353,7 @@ class Session:
         if wait_response:
             self.results[msg_id] = Result()
 
-        # Call log.debug twice because calling it once by appending "data" to the previous string (i.e. f"Kind: {data}")
-        # will cause "data" to be evaluated as string every time instead of only when debug is actually enabled.
         log.debug("Sent:\n%s", message)
-        log.debug(message)
 
         payload = await self.loop.run_in_executor(
             pyrogram.crypto_executor,
