@@ -18,7 +18,7 @@
 
 import base64
 import logging
-import sqlite3
+import aiosqlite
 import struct
 
 from .sqlite_storage import SQLiteStorage
@@ -29,8 +29,8 @@ log = logging.getLogger(__name__)
 class MemoryStorage(SQLiteStorage):
 
     async def open(self):
-        self.conn = sqlite3.connect(":memory:", check_same_thread=False)
-        self.create()
+        self.conn = await aiosqlite.connect(":memory:")
+        await self.create()
 
         if self.name != ":memory:":
             dc_id, test_mode, auth_key, user_id, is_bot = struct.unpack(
